@@ -8,16 +8,6 @@
 eval "$(starship init zsh)"
 
 # ----------------------------------------
-# Load rustup
-# ----------------------------------------
-source "$HOME/.cargo/env"
-
-# ----------------------------------------
-# Load Homebrew
-# ----------------------------------------
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# ----------------------------------------
 # Load Oh My Zsh
 # ----------------------------------------
 export ZSH="$HOME/.oh-my-zsh"
@@ -59,7 +49,7 @@ autoload -Uz compinit && compinit
 # Source all scripts from the scripts directory
 # ============================
 
-for script in "$DOTFILES_PATH/scripts/"*.zsh; do
+for script in "$DOTFILES_PATH/configurations/zsh/scripts/"*.zsh; do
   [[ -f $script ]] && source "$script"
 done
 
@@ -67,7 +57,7 @@ done
 # Source all alias files from the aliases directory
 # ============================
 
-for alias_file in "$DOTFILES_PATH/aliases/"*.zsh; do
+for alias_file in "$DOTFILES_PATH/configurations/zsh/aliases/"*.zsh; do
   [[ -f $alias_file ]] && source "$alias_file"
 done
 
@@ -87,7 +77,3 @@ setopt NO_CASE_GLOB                # Case-insensitive globbing
 # ----------------------------------------
 
 [[ -f "$DOTFILES_PATH/zstyle.zsh" ]] && source "$DOTFILES_PATH/zstyle.zsh"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

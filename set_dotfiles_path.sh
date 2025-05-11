@@ -1,11 +1,10 @@
 #!/bin/bash
 # set_dotfiles_path.sh
 # This script sets the DOTFILES_PATH environment variable for both the current session
-# and ensures it persists across shell sessions by adding it to .zshrc.
+# and adds value to .zshenv file that stores environment variables.
 # Usage: source ./set_dotfiles_path.sh
 
 # Determine the absolute path to the dotfiles directory
-# When sourced, $0 isn't reliable, so we use BASH_SOURCE if available
 if [[ -n "${BASH_SOURCE[0]}" ]]; then
   SCRIPT_PATH="${BASH_SOURCE[0]}"
 else
@@ -20,43 +19,40 @@ DOTFILES_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
 export DOTFILES_PATH="$DOTFILES_DIR"
 echo "DOTFILES_PATH is set to: $DOTFILES_PATH for the current session"
 
-# Set the path to the configurations directory
-CONFIG_DIR="$DOTFILES_DIR/configurations/zsh"
+# Define the environment file path
+ENV_FILE="$HOME/.zshenv"
 
-# Define the target .zshrc file
-ZSHRC_FILE="$CONFIG_DIR/.zshrc"
-echo "Using managed .zshrc at $ZSHRC_FILE"
-
-# We'll use a fixed insertion point (line 4) for consistency
-HEADER_END=4
-
-# Create temporary file
-TEMP_FILE=$(mktemp)
-
-# Check if DOTFILES_PATH export already exists
-if grep -q "export DOTFILES_PATH=" "$ZSHRC_FILE"; then
-  echo "Updating DOTFILES_PATH in $ZSHRC_FILE"
-else
-  echo "Adding DOTFILES_PATH to $ZSHRC_FILE after initial comments"
+echo "Checking for existing .zshenv file at $ENV_FILE"
+if [ ! -f "$ENV_FILE" ]; then
+  echo "Creating new .zshenv file at $ENV_FILE"
+  touch "$ENV_FILE"
 fi
 
-# First part: Copy the header block (lines 1-4)
-head -n $HEADER_END "$ZSHRC_FILE" > "$TEMP_FILE"
+# Create or update the environment file
+echo "Managing environment file at $ENV_FILE"
 
-# Add an empty line for spacing
-echo "" >> "$TEMP_FILE"
+# Check if DOTFILES_PATH is already set in the environment file
+if grep -q "^export DOTFILES_PATH=" "$ENV_FILE"; then
+  # Update the existing DOTFILES_PATH value
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i '' "s|^export DOTFILES_PATH=.*|export DOTFILES_PATH=\"$DOTFILES_DIR\"|" "$ENV_FILE"
+  else
+    sed -i "s|^export DOTFILES_PATH=.*|export DOTFILES_PATH=\"$DOTFILES_DIR\"|" "$ENV_FILE"
+  fi
+  echo "Updated existing DOTFILES_PATH in $ENV_FILE"
+else
+  # Append the DOTFILES_PATH configuration
+  cat >> "$ENV_FILE" << EOL
+    # DOTFILES path configuration
+    export DOTFILES_PATH="$DOTFILES_DIR"
+EOL
 
-# Add the DOTFILES_PATH export
-echo "# Set the dotfiles path" >> "$TEMP_FILE"
-echo "export DOTFILES_PATH=\"$DOTFILES_DIR\"" >> "$TEMP_FILE"
-echo "" >> "$TEMP_FILE"
+  echo "Appended DOTFILES_PATH to $ENV_FILE"
+fi
 
-# Extract the remaining content, excluding any line with DOTFILES_PATH export
-tail -n +$((HEADER_END + 1)) "$ZSHRC_FILE" | grep -v "export DOTFILES_PATH=" >> "$TEMP_FILE"
+# Set proper permissions
+chmod 644 "$ENV_FILE"
 
-# Replace original file
-mv "$TEMP_FILE" "$ZSHRC_FILE"
-echo "DOTFILES_PATH has been positioned correctly in $ZSHRC_FILE"
-
+echo "Updated $ENV_FILE with DOTFILES_PATH=$DOTFILES_DIR"
 echo "DOTFILES_PATH is now set for current and future shell sessions"
 
