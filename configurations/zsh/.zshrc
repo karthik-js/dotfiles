@@ -18,6 +18,12 @@ source "$HOME/.cargo/env"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # ----------------------------------------
+# Load Oh My Zsh
+# ----------------------------------------
+export ZSH="$HOME/.oh-my-zsh"
+source $ZSH/oh-my-zsh.sh
+
+# ----------------------------------------
 # History Configuration
 # ----------------------------------------
 
