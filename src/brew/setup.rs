@@ -11,9 +11,14 @@ pub fn setup_brew() {
     let delay = Duration::from_millis(100);
 
     with_spinner(message, &spinner_frames, delay, || {
-        super::install::ensure_brew_installed();
-        super::install_packages::run_brew_bundle("configurations/brew/Brewfile");
+        let brew_installed = super::install::ensure_brew_installed();
+        if brew_installed {
+            super::install_packages::run_brew_bundle("configurations/brew/Brewfile");
+            log_success("✅ Homebrew configuration setup complete.");
+        } else {
+            log_success(
+                "⏸️ Homebrew setup paused. Please install Homebrew manually and run again.",
+            );
+        }
     });
-
-    log_success("✅ Homebrew configuration setup complete.");
 }
