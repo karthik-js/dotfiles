@@ -39,14 +39,3 @@ fi
 echo "Running the project..."
 cargo run
 
-# Step 4: Reload shell to apply any changes to the current session
-echo "Reloading shell to apply configuration changes..."
-if command_exists omz; then
-    omz reload
-else
-    # Fallback if omz command is not available
-    echo "Oh My Zsh reload command not found, using source instead."
-    if [ -f "$HOME/.zshrc" ]; then
-        source "$HOME/.zshrc"
-    fi
-fi
