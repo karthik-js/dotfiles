@@ -23,6 +23,12 @@ prompt pure                           # Use the 'pure' minimal prompt (install v
 # Enable completion system
 autoload -Uz compinit && compinit
 
+# Enable fzf completion
+[ -f $(brew --prefix)/opt/fzf/shell/completion.zsh ] && source $(brew --prefix)/opt/fzf/shell/completion.zsh
+
+# Enable fzf key bindings
+[ -f $(brew --prefix)/opt/fzf/shell/key-bindings.zsh ] && source $(brew --prefix)/opt/fzf/shell/key-bindings.zsh
+
 # ============================
 # Source all scripts from the scripts directory
 # ============================

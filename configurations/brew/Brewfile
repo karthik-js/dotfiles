@@ -3,3 +3,7 @@
 # CLI tools
 brew "gh" # GitHub CLI
 brew "tree" # Display directory tree
+brew "zsh-syntax-highlighting" # Zsh syntax highlighting
+brew "fzf" # Fuzzy finder
+brew "ripgrep" # Search tool
+brew "jq" # JSON processor

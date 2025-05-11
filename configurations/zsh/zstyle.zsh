@@ -21,3 +21,7 @@ zstyle ':completion:*' rehash true
 # Enable smart case completion
 zstyle ':completion:*' case-sensitive false
 
+# Enable Zsh Syntax Highlighting
+if [[ -f $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
