@@ -2,9 +2,6 @@
 # Zsh Profile Configuration
 # ============================
 
-# Set the dotfiles base path (if using a custom dotfiles repo)
-export DOTFILES="$HOME/dotfiles/"
-
 # ----------------------------------------
 # Key Environment Variables
 # ----------------------------------------

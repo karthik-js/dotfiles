@@ -19,11 +19,25 @@ pub fn ensure_brew_installed() {
 }
 
 fn is_brew_installed() -> bool {
-    Command::new("brew")
-        .arg("--version")
-        .output()
-        .map(|output| output.status.success())
-        .unwrap_or(false)
+    match Command::new("brew").arg("--version").output() {
+        Ok(output) => {
+            if output.status.success() {
+                let version = String::from_utf8_lossy(&output.stdout);
+                log_info(&format!("🔍 Homebrew version: {}", version.trim()));
+                true
+            } else {
+                log_error(&format!(
+                    "❌ Homebrew check failed with error: {}",
+                    String::from_utf8_lossy(&output.stderr).trim()
+                ));
+                false
+            }
+        }
+        Err(err) => {
+            log_error(&format!("❌ Failed to execute brew command: {}", err));
+            false
+        }
+    }
 }
 
 fn install_brew() -> bool {

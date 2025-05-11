@@ -8,6 +8,16 @@
 eval "$(starship init zsh)"
 
 # ----------------------------------------
+# Load rustup
+# ----------------------------------------
+source "$HOME/.cargo/env"
+
+# ----------------------------------------
+# Load Homebrew
+# ----------------------------------------
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# ----------------------------------------
 # History Configuration
 # ----------------------------------------
 
@@ -28,7 +38,7 @@ setopt SHARE_HISTORY                # Share history across all sessions
 # ----------------------------------------
 
 autoload -Uz promptinit && promptinit
-prompt pure                           # Use the 'pure' minimal prompt (install via `brew install pure`)
+# prompt pure                           # Use the 'pure' minimal prompt (install via `brew install pure`)
 
 # Enable completion system
 autoload -Uz compinit && compinit
@@ -43,7 +53,7 @@ autoload -Uz compinit && compinit
 # Source all scripts from the scripts directory
 # ============================
 
-for script in "$DOTFILES/scripts/"*.zsh; do
+for script in "$DOTFILES_PATH/scripts/"*.zsh; do
   [[ -f $script ]] && source "$script"
 done
 
@@ -51,7 +61,7 @@ done
 # Source all alias files from the aliases directory
 # ============================
 
-for alias_file in "$DOTFILES/aliases/"*.zsh; do
+for alias_file in "$DOTFILES_PATH/aliases/"*.zsh; do
   [[ -f $alias_file ]] && source "$alias_file"
 done
 
@@ -70,7 +80,7 @@ setopt NO_CASE_GLOB                # Case-insensitive globbing
 # Source zstyle configuration file
 # ----------------------------------------
 
-[[ -f "$DOTFILES/zstyle.zsh" ]] && source "$DOTFILES/zstyle.zsh"
+[[ -f "$DOTFILES_PATH/zstyle.zsh" ]] && source "$DOTFILES_PATH/zstyle.zsh"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

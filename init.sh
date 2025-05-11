@@ -6,8 +6,11 @@ command_exists() {
 }
 
 # Step 1: Set DOTFILES_PATH environment variable
-export DOTFILES_PATH="$(cd "$(dirname "$0")" && pwd)"
-echo "DOTFILES_PATH is set to: $DOTFILES_PATH"
+# Make the script executable
+chmod +x "$(dirname "$0")/set_dotfiles_path.sh"
+
+# Source the script to set DOTFILES_PATH for the current session
+source "$(dirname "$0")/set_dotfiles_path.sh"
 
 # Step 2: Check if Rust is installed
 if command_exists rustc; then
@@ -35,3 +38,15 @@ fi
 # Step 3: Run the project
 echo "Running the project..."
 cargo run
+
+# Step 4: Reload shell to apply any changes to the current session
+echo "Reloading shell to apply configuration changes..."
+if command_exists omz; then
+    omz reload
+else
+    # Fallback if omz command is not available
+    echo "Oh My Zsh reload command not found, using source instead."
+    if [ -f "$HOME/.zshrc" ]; then
+        source "$HOME/.zshrc"
+    fi
+fi
