@@ -12,6 +12,7 @@ pub fn setup_brew() {
 
     with_spinner(message, &spinner_frames, delay, || {
         super::install::ensure_brew_installed();
+        super::install_packages::run_brew_bundle("configurations/brew/Brewfile");
     });
 
     log_step("✅ Homebrew configuration setup complete.");

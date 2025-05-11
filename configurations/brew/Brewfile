@@ -1,0 +1,5 @@
+# config/Brewfile
+
+# CLI tools
+brew "gh" # GitHub CLI
+brew "tree" # Display directory tree
