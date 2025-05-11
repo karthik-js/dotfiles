@@ -1,3 +1,4 @@
+mod brew;
 mod utils;
 mod zsh;
 
@@ -7,4 +8,5 @@ fn main() {
     log_info("Initializing your application setup process...");
 
     zsh::setup::setup_zsh();
+    brew::setup::setup_brew();
 }
