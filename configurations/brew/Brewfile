@@ -7,3 +7,4 @@ brew "zsh-syntax-highlighting" # Zsh syntax highlighting
 brew "fzf" # Fuzzy finder
 brew "ripgrep" # Search tool
 brew "jq" # JSON processor
+brew "starship" # Starship prompt

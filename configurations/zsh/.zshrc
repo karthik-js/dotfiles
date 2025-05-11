@@ -3,6 +3,11 @@
 # ============================
 
 # ----------------------------------------
+# Load starship prompt
+# ----------------------------------------
+eval "$(starship init zsh)"
+
+# ----------------------------------------
 # History Configuration
 # ----------------------------------------
 
@@ -12,6 +17,11 @@ SAVEHIST=10000                      # Number of commands to save in the history 
 setopt HIST_IGNORE_ALL_DUPS        # Avoid duplicate entries in history
 setopt HIST_REDUCE_BLANKS          # Strip unnecessary spaces
 setopt SHARE_HISTORY                # Share history across all sessions
+
+# ----------------------------------------
+# Zsh theme
+# ----------------------------------------
+# ZSH_THEME="fino-time"
 
 # ----------------------------------------
 # Prompt (Pure)
