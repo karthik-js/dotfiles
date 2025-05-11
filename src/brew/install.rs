@@ -5,6 +5,7 @@ const HOMEBREW_INSTALL_SCRIPT: &str =
     "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh";
 
 pub fn ensure_brew_installed() {
+    log_info("🔍 Checking for Homebrew installation...");
     if !is_brew_installed() {
         log_info("ℹ️ Homebrew is not installed. Installing...");
         if install_brew() {

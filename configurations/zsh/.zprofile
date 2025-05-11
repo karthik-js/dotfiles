@@ -3,7 +3,7 @@
 # ============================
 
 # Set the dotfiles base path (if using a custom dotfiles repo)
-export DOTFILES="$HOME/dotfiles/zsh"
+export DOTFILES="$HOME/dotfiles/"
 
 # ----------------------------------------
 # Key Environment Variables

@@ -5,7 +5,11 @@ command_exists() {
     command -v "$1" &> /dev/null
 }
 
-# Step 1: Check if Rust is installed
+# Step 1: Set DOTFILES_PATH environment variable
+export DOTFILES_PATH="$(cd "$(dirname "$0")" && pwd)"
+echo "DOTFILES_PATH is set to: $DOTFILES_PATH"
+
+# Step 2: Check if Rust is installed
 if command_exists rustc; then
     echo "Rust is already installed."
 else
@@ -28,6 +32,6 @@ else
     source $HOME/.cargo/env
 fi
 
-# Step 2: Run the project
+# Step 3: Run the project
 echo "Running the project..."
 cargo run

@@ -10,8 +10,10 @@ pub fn symlink_zsh_configs() {
         return;
     }
 
-    let zshrc_source = PathBuf::from("configurations/zsh/.zshrc");
-    let zprofile_source = PathBuf::from("configurations/zsh/.zprofile");
+    let dotfiles_path =
+        std::env::var("DOTFILES_PATH").expect("Could not get DOTFILES_PATH environment variable");
+    let zshrc_source = PathBuf::from(format!("{}/configurations/zsh/.zshrc", dotfiles_path));
+    let zprofile_source = PathBuf::from(format!("{}/configurations/zsh/.zprofile", dotfiles_path));
 
     let zshrc_target = PathBuf::from(format!("{}/.zshrc", home_dir));
     let zprofile_target = PathBuf::from(format!("{}/.zprofile", home_dir));

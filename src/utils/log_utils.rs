@@ -1,4 +1,3 @@
-use chrono::Local;
 use colored::*;
 
 /// Logs a message to the console with a timestamp.
@@ -6,8 +5,7 @@ use colored::*;
 /// # Arguments
 /// * `message` - The message to log.
 pub fn log_to_console(message: &str) {
-    let timestamp = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
-    println!("[{}] {}", timestamp, message);
+    println!("{}", message);
 }
 
 /// Logs an informational message to the console with color.
@@ -19,15 +17,6 @@ pub fn log_info(message: &str) {
     log_to_console(&info_message.to_string());
 }
 
-/// Logs a step message to the console with color.
-///
-/// # Arguments
-/// * `message` - The step message to log.
-pub fn log_step(message: &str) {
-    let step_message = format!("STEP: {}", message).blue();
-    log_to_console(&step_message.to_string());
-}
-
 /// Logs an error message to the console with color.
 ///
 /// # Arguments
@@ -37,14 +26,12 @@ pub fn log_error(message: &str) {
     log_to_console(&error_message.to_string());
 }
 
-pub fn log_warning(message: &str) {
-    let warning_message = format!("WARNING: {}", message).yellow();
-    log_to_console(&warning_message.to_string());
-}
-
 pub fn log_success(message: &str) {
     let success_message = format!("SUCCESS: {}", message).green();
     log_to_console(&success_message.to_string());
 }
 
-
+pub fn log_warning(message: &str) {
+    let warning_message = format!("WARNING: {}", message).yellow();
+    log_to_console(&warning_message.to_string());
+}

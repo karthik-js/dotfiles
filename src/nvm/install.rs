@@ -1,15 +1,14 @@
 use std::process::Command;
 
+use crate::utils::log_utils::{log_error, log_info, log_success};
+
 pub fn install_nvm() {
-    // Check if NVM is already installed
-    if Command::new("sh")
-        .arg("-c")
-        .arg("command -v nvm")
-        .status()
-        .map(|status| status.success())
-        .unwrap_or(false)
-    {
-        println!("NVM is already installed.");
+    let nvm_dir = dirs::home_dir()
+        .map(|home| home.join(".nvm"))
+        .expect("Failed to determine home directory");
+
+    if nvm_dir.exists() {
+        log_info("NVM is already installed.");
         return;
     }
 
@@ -22,9 +21,9 @@ pub fn install_nvm() {
         .map(|status| status.success())
         .unwrap_or(false)
     {
-        eprintln!("NVM installation failed.");
+        log_error("Failed to install NVM. Please check your internet connection and try again.");
         return;
     }
 
-    println!("NVM installed successfully.");
+    log_success("✅ NVM installed successfully.");
 }

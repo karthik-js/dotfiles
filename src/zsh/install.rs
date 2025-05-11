@@ -8,7 +8,7 @@ pub fn install_oh_my_zsh_if_needed() {
     let omz_dir = format!("{}/.oh-my-zsh", home_dir);
 
     if Path::new(&omz_dir).exists() {
-        log_info("Oh My Zsh is already installed.");
+        log_success("Oh My Zsh is already installed.");
         return;
     }
 

@@ -1,7 +1,7 @@
 use std::time::Duration;
 
 use crate::utils::{
-    log_utils::log_step,
+    log_utils::log_success,
     spinner_utils::{get_random_spinner_frame, with_spinner},
 };
 
@@ -15,5 +15,5 @@ pub fn setup_brew() {
         super::install_packages::run_brew_bundle("configurations/brew/Brewfile");
     });
 
-    log_step("✅ Homebrew configuration setup complete.");
+    log_success("✅ Homebrew configuration setup complete.");
 }

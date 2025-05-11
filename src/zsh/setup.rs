@@ -1,4 +1,4 @@
-use crate::utils::log_utils::log_step;
+use crate::utils::log_utils::log_success;
 use crate::utils::spinner_utils::get_random_spinner_frame;
 use crate::utils::spinner_utils::with_spinner;
 
@@ -16,5 +16,5 @@ pub fn setup_zsh() {
         symlink_zsh_configs();
     });
 
-    log_step("✅ Zsh configuration setup complete.");
+    log_success("✅ Zsh configuration setup complete.");
 }

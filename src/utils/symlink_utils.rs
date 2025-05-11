@@ -1,26 +1,41 @@
+use std::fs;
+use std::io::ErrorKind;
 use std::path::Path;
 
-use super::log_utils::{log_error, log_info};
+use super::log_utils::{log_error, log_info, log_success, log_warning};
 
 pub fn create_symlink(source: &Path, target: &Path) {
-    if target.exists() {
-        log_info(&format!("⚠️ Target file already exists: {:?}", target));
+    if let Ok(metadata) = fs::symlink_metadata(target) {
+        if metadata.file_type().is_symlink() {
+            log_warning(&format!("⚠️ Target is a symlink: {:?}", target));
+            log_info("Removing existing symlink...");
 
-        log_info("Backing up existing file...");
-        let backup_path = format!("{}.bak", target.display());
-        if let Err(e) = std::fs::rename(target, &backup_path) {
-            log_error(&format!(
-                "⚠️ Failed to back up existing file: {:?} - {}",
-                target, e
-            ));
-            return;
+            if let Err(e) = fs::remove_file(target) {
+                log_error(&format!(
+                    "❌ Failed to remove existing symlink: {:?} - {}",
+                    target, e
+                ));
+                return;
+            }
+            log_success(&format!("✅ Removed existing symlink: {:?}", target));
+        } else {
+            log_warning(&format!("⚠️ Target file already exists: {:?}", target));
+
+            log_info("Backing up existing file...");
+            let backup_path = format!("{}.bak", target.display());
+            if let Err(e) = fs::rename(target, &backup_path) {
+                log_error(&format!(
+                    "❌ Failed to back up existing file: {:?} - {}",
+                    target, e
+                ));
+                return;
+            }
+            log_info(&format!("✅ Backed up existing file to: {:?}", backup_path));
         }
-        log_info(&format!("✅ Backed up existing file to: {:?}", backup_path));
-        log_info("Removing existing file...");
-
-        if let Err(e) = std::fs::remove_file(target) {
+    } else if let Err(e) = fs::symlink_metadata(target) {
+        if e.kind() != ErrorKind::NotFound {
             log_error(&format!(
-                "⚠️ Failed to remove existing file: {:?} - {}",
+                "❌ Failed to check target metadata: {:?} - {}",
                 target, e
             ));
             return;
@@ -42,7 +57,7 @@ pub fn create_symlink(source: &Path, target: &Path) {
     };
 
     match result {
-        Ok(_) => log_info(&format!("✅ Symlink created: {:?} → {:?}", target, source)),
+        Ok(_) => log_success(&format!("✅ Symlink created: {:?} → {:?}", target, source)),
         Err(e) => log_error(&format!(
             "❌ Could not symlink {:?} → {:?}: {}",
             source, target, e
