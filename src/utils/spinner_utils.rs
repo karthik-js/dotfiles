@@ -68,10 +68,6 @@ const SPINNER_FRAMES: &[&[&str]] = &[
     &["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"],
 ];
 
-pub fn get_spinner_frames(index: usize) -> Option<&'static [&'static str]> {
-    SPINNER_FRAMES.get(index).copied()
-}
-
 // get random spinner frame
 pub fn get_random_spinner_frame() -> &'static [&'static str] {
     let mut rng = rand::rng();

@@ -18,3 +18,8 @@ export PATH="$HOME/bin:$PATH"       # User-specific bin directory
 # ----------------------------------------
 export FZF_DEFAULT_OPTS="--height 40% --reverse --border"
 export FZF_DEFAULT_COMMAND='rg --files'
+
+# ----------------------------------------
+# NVM Configuration
+# ----------------------------------------
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
