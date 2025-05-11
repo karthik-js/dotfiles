@@ -1,3 +1,10 @@
+mod utils;
+mod zsh;
+
+use utils::log_utils::log_info;
+
 fn main() {
-    println!("Hello, world!");
+    log_info("Initializing your application setup process...");
+
+    zsh::setup::setup_zsh();
 }
