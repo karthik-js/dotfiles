@@ -5,18 +5,18 @@ This project automates the setup of a new system with essential tools and config
 ## Features
 
 - **Zsh Configuration**:
-  - Installs Oh My Zsh if not already installed.
-  - Symlinks `.zshrc` and `.zprofile` from the `configurations/zsh` directory.
-  - Sources additional scripts and aliases for enhanced functionality.
+   - Installs Oh My Zsh if not already installed.
+   - Symlinks `.zshrc` and `.zprofile` from the `configurations/zsh` directory.
+   - Sources additional scripts and aliases for enhanced functionality.
 
 - **Homebrew**:
-  - Ensures Homebrew is installed.
-  - Installs packages listed in the `configurations/brew/Brewfile`.
+   - Ensures Homebrew is installed.
+   - Installs packages listed in the `configurations/brew/Brewfile`.
 
 - **Utilities**:
-  - Cross-platform symlink creation with backup support.
-  - Logging utilities for clear feedback during the setup process.
-  - Spinner animations for a better user experience.
+   - Cross-platform symlink creation with backup support.
+   - Logging utilities for clear feedback during the setup process.
+   - Spinner animations for a better user experience.
 
 ## Project Structure
 
@@ -50,40 +50,50 @@ This project automates the setup of a new system with essential tools and config
 ### Method 1: Clone and Run
 
 1. Clone this repository:
-   ```bash
-   git clone https://github.com/karthik-js/dotfiles.git
-   cd dotfiles
-   ```
+    ```bash
+    git clone https://github.com/karthik-js/dotfiles.git
+    cd dotfiles
+    ```
 
 2. Make the `init.sh` script executable:
-   ```bash
-   chmod +x init.sh
-   ```
+    ```bash
+    chmod +x init.sh
+    ```
 
 3. Run the `init.sh` script:
-   ```bash
-   ./init.sh
-   ```
+    ```bash
+    ./init.sh
+    ```
+
+4. Reload your Zsh configuration:
+    ```bash
+    source ~/.zshrc
+    ```
 
 ### Method 2: Fork, Clone, and Run
 
 1. Fork this repository to your GitHub account.
 
 2. Clone your forked repository:
-   ```bash
-   git clone https://github.com/your-username/dotfiles.git
-   cd dotfiles
-   ```
+    ```bash
+    git clone https://github.com/your-username/dotfiles.git
+    cd dotfiles
+    ```
 
 3. Make the `init.sh` script executable:
-   ```bash
-   chmod +x init.sh
-   ```
+    ```bash
+    chmod +x init.sh
+    ```
 
 4. Run the `init.sh` script:
-   ```bash
-   ./init.sh
-   ```
+    ```bash
+    ./init.sh
+    ```
+
+5. Reload your Zsh configuration:
+    ```bash
+    source ~/.zshrc
+    ```
 
 ## Customization
 
